@@ -2,7 +2,9 @@ package io.doherty.john.weekthreelab.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Address {
@@ -17,6 +19,12 @@ public class Address {
     private String state;
     private String zipcode;
     private String country;
+
+    @ManyToMany(targetEntity = Account.class,
+                fetch = FetchType.LAZY,
+                cascade = { CascadeType.PERSIST, CascadeType.MERGE},
+                mappedBy = "addresses")
+    private Set<Account> accounts = new HashSet<>();
 
     public Address() { }
 
@@ -66,4 +74,11 @@ public class Address {
         this.country = country;
     }
 
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
 }

@@ -13,24 +13,16 @@ import java.util.Optional;
 public class AddressController {
 
     @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
     private AddressRepository addressRepository;
 
-    @PostMapping("/create")
-    void createAddress(@RequestBody Account account) {
-        accountRepository.save(account);
-
-//        Account account = accountRepository.findById(accountId).get();
-//        Address address = new Address(street, apt, city, state, zipcode, country);
-//        account.addAddress(address);
-//        addressRepository.save(address);
+    @PostMapping("/address")
+    void createAddress(@RequestBody Address address) {
+        addressRepository.save(address);
     }
 
-    @GetMapping("/read/address/{id}")
-    Optional<Address> getAddress(@PathVariable long id) {
-        return addressRepository.findById(id);
+    @GetMapping("/address/{id}")
+    Address getAddress(@PathVariable long id) {
+        return addressRepository.findById(id).get();
     }
 
 

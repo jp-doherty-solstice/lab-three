@@ -1,7 +1,9 @@
 package io.doherty.john.weekthreelab.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -11,11 +13,16 @@ public class Account {
     private long id;
 
     private String firstName;
+
     private String lastName;
+
     private String email;
 
-    @OneToMany(targetEntity = Address.class)
-    private List<Address> addresses;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "account_address",
+               joinColumns = { @JoinColumn(name = "account_id") },
+               inverseJoinColumns = { @JoinColumn(name = "address_id") })
+    private Set<Address> addresses = new HashSet<>();
 
     public Account() {}
 
@@ -43,19 +50,20 @@ public class Account {
     public void setEmailAddress(String email) {
         this.email = email;
     }
-    public List<Address> getAddresses() {
+    public Set<Address> getAddresses() {
         return addresses;
     }
-    public void setAddresses(List<Address> addresses) {
+    public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
-
     public void addAddress(Address address) {
         addresses.add(address);
     }
-
     public void removeAddress(Address address) {
         addresses.remove(address);
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
