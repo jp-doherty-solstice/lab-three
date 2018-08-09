@@ -19,7 +19,9 @@ public class Address {
     private String zipcode;
     private String country;
 
-
+    @ManyToOne
+    @JoinColumn(name = "accountId")
+    private Account account;
 
     public Address() { }
 
@@ -60,4 +62,11 @@ public class Address {
         this.country = country;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

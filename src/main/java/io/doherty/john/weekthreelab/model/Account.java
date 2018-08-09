@@ -16,7 +16,6 @@ public class Account {
     private String email;
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
-    @JoinColumn(name = "accountId")
     private Set<Address> addresses = new HashSet<>();
 
 //    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
