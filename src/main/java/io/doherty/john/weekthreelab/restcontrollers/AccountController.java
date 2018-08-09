@@ -2,6 +2,7 @@ package io.doherty.john.weekthreelab.restcontrollers;
 
 import io.doherty.john.weekthreelab.model.Account;
 import io.doherty.john.weekthreelab.model.Address;
+import io.doherty.john.weekthreelab.model.OrderDetail;
 import io.doherty.john.weekthreelab.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,14 @@ public class AccountController {
         return accountRepository.findById(id).get();
     }
 
-    @GetMapping("/read/alladdresses/{id}")
+    @GetMapping("/account/{id}/all_addresses")
     Set<Address> getAllAccounts(@PathVariable long id) {
-        Account account = accountRepository.findById(id).get();
-        return account.getAddresses();
+        return accountRepository.findById(id).get().getAddresses();
+    }
+
+    @GetMapping("/account/{accountId}/all_orders")
+    List<OrderDetail> getAllOrders(@PathVariable Long accountId) {
+        return accountRepository.getAllOrders(accountId);
     }
 
 

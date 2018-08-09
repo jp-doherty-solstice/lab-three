@@ -10,25 +10,21 @@ public class Account {
 
     @Id
     @GeneratedValue
-    private long id;
+    private long accountId;
 
     private String firstName;
-
     private String lastName;
-
     private String email;
 
     @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "accountId")
     private Set<Address> addresses = new HashSet<>();
 
-    public Account() {}
+//    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+//    @JoinColumn(name = "accountId")
+//    private Set<OrderDetail> orders = new HashSet<>();
 
-    public Account(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
+    public Account() {}
 
     public String getFirstName() {
         return firstName;
@@ -64,4 +60,12 @@ public class Account {
     public void setEmail(String email) {
         this.email = email;
     }
+
+//    public Set<OrderDetail> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(Set<OrderDetail> orders) {
+//        this.orders = orders;
+//    }
 }

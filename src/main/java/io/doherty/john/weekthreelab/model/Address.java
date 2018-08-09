@@ -11,7 +11,7 @@ public class Address {
 
     @Id
     @GeneratedValue
-    private long id;
+    private long addressId;
 
     private String street;
     private String apt;
@@ -21,15 +21,6 @@ public class Address {
     private String country;
 
     public Address() { }
-
-    public Address(String street, String apt, String city, String state, String zipcode, String country) {
-        this.street = street;
-        this.apt = apt;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-        this.country = country;
-    }
 
     public String getStreet() {
         return street;
