@@ -18,10 +18,8 @@ public class Account {
 
     private String email;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "account_address",
-               joinColumns = { @JoinColumn(name = "account_id") },
-               inverseJoinColumns = { @JoinColumn(name = "address_id") })
+    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @JoinColumn(name = "account_id")
     private Set<Address> addresses = new HashSet<>();
 
     public Account() {}

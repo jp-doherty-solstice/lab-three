@@ -20,12 +20,6 @@ public class Address {
     private String zipcode;
     private String country;
 
-    @ManyToMany(targetEntity = Account.class,
-                fetch = FetchType.LAZY,
-                cascade = { CascadeType.PERSIST, CascadeType.MERGE},
-                mappedBy = "addresses")
-    private Set<Account> accounts = new HashSet<>();
-
     public Address() { }
 
     public Address(String street, String apt, String city, String state, String zipcode, String country) {
@@ -74,11 +68,4 @@ public class Address {
         this.country = country;
     }
 
-    public Set<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
-    }
 }
