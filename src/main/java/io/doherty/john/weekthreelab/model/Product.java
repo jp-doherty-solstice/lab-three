@@ -1,15 +1,13 @@
 package io.doherty.john.weekthreelab.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product {
 
     @Id
     @GeneratedValue
-    private long id;
+    private long productId;
 
     private String name;
     private String description;

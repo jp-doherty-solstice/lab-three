@@ -12,13 +12,14 @@ public class Address {
     @Id
     @GeneratedValue
     private long addressId;
-
     private String street;
     private String apt;
     private String city;
     private String state;
     private String zipcode;
     private String country;
+
+
 
     public Address() { }
 

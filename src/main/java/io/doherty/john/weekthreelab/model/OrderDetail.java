@@ -3,6 +3,7 @@ package io.doherty.john.weekthreelab.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Random;
+import java.util.Set;
 
 @Entity
 public class OrderDetail {
@@ -17,8 +18,11 @@ public class OrderDetail {
 
     private Timestamp orderDate;
 
-    //    private Address shippingAddress;
-    //    private LineItems lineItems;
+//    private Address shippingAddress;
+
+    @OneToMany
+    @JoinColumn(name = "lineItemId")
+    private Set<LineItem> lineItems;
 
     private double totalPrice;
 

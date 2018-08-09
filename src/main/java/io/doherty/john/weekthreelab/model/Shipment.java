@@ -16,7 +16,7 @@ public class Shipment {
 //
 //    private Address shippingAddress;
 //
-//    private LineItems lineItems;
+//    private LineItem lineItems;
 //
 //    private Timestamp shippedDate;
 //

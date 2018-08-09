@@ -1,21 +1,21 @@
 //package io.doherty.john.weekthreelab.restcontrollers;
 //
-//import io.doherty.john.weekthreelab.model.Product;
-//import io.doherty.john.weekthreelab.repository.ProductRepository;
+//import io.doherty.john.weekthreelab.model.LineItem;
+//import io.doherty.john.weekthreelab.repository.LineItemRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RestController;
 //
 //@RestController
-//public class ProductController {
+//public class LineItemController {
 //
 //    @Autowired
-//    private ProductRepository productRepository;
+//    LineItemRepository lineItemRepository;
 //
-//    @PostMapping("/product")
-//    void createProduct(@RequestBody Product product) {
-//        productRepository.save(product);
+//    @PostMapping("/line_item")
+//    void createLineItem(@RequestBody LineItem lineItem) {
+//        lineItemRepository.save(lineItem);
 //    }
 //
 //}
