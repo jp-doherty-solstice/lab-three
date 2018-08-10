@@ -10,7 +10,7 @@ public class Shipment {
 
     @Id
     @GeneratedValue
-    private long id;
+    private long shipmentId;
 
 //    private Account account;
 //

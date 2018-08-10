@@ -1,6 +1,5 @@
 package io.doherty.john.weekthreelab.restcontrollers;
 
-import io.doherty.john.weekthreelab.model.Account;
 import io.doherty.john.weekthreelab.model.Address;
 import io.doherty.john.weekthreelab.model.OrderDetail;
 import io.doherty.john.weekthreelab.repository.AccountRepository;
@@ -16,26 +15,14 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @PostMapping("/account")
-    void createAccount(@RequestBody Account account) {
-        accountRepository.save(account);
+    @GetMapping("/accounts/{id}/addresses")
+    Set<Address> getAddresses(@PathVariable Long id) {
+        return this.accountRepository.getAddresses(id);
     }
 
-    @GetMapping("/account/{id}")
-    Account getAddress(@PathVariable long id) {
-        return accountRepository.findById(id).get();
+    @GetMapping("/accounts/{id}/orders")
+    List<OrderDetail> getOrders(@PathVariable Long id) {
+        return accountRepository.getOrders(id);
     }
-
-    @GetMapping("/account/{id}/all_addresses")
-    Set<Address> getAllAccounts(@PathVariable long id) {
-        return accountRepository.findById(id).get().getAddresses();
-    }
-
-    @GetMapping("/account/{accountId}/all_orders")
-    List<OrderDetail> getAllOrders(@PathVariable Long accountId) {
-        return accountRepository.getAllOrders(accountId);
-    }
-
-
 
 }

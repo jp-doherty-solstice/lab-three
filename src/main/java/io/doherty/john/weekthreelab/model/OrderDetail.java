@@ -2,7 +2,6 @@ package io.doherty.john.weekthreelab.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Random;
 import java.util.Set;
 
 @Entity
@@ -10,7 +9,7 @@ public class OrderDetail {
 
     @Id
     @GeneratedValue
-    private long id;
+    private long orderNumber;
 
     @ManyToOne
     @JoinColumn(name = "accountId")
@@ -18,23 +17,22 @@ public class OrderDetail {
 
     private Timestamp orderDate;
 
-//    private Address shippingAddress;
+    @OneToOne
+    @JoinColumn(name = "addressId")
+    private Address shippingAddress;
 
     @OneToMany
-    @JoinColumn(name = "lineItemId")
     private Set<LineItem> lineItems;
 
     private double totalPrice;
 
-
     public OrderDetail() {
-        Random random = new Random();
+        this.orderDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Account getAccount() {
         return account;
     }
-
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -54,4 +52,26 @@ public class OrderDetail {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public Set<LineItem> getLineItems() {
+        return lineItems;
+    }
+
+    public void setLineItems(Set<LineItem> lineItems) {
+        this.lineItems = lineItems;
+        this.totalPrice = 0.00;
+        this.lineItems.forEach(lineItem -> {
+            lineItem.setOrderDetail(this);
+            this.totalPrice += lineItem.getTotalPrice();
+        });
+    }
+
 }
