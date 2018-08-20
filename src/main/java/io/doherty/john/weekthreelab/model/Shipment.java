@@ -1,7 +1,11 @@
 package io.doherty.john.weekthreelab.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,9 +25,18 @@ public class Shipment {
     private Address shippingAddress;
 
     @OneToMany
-    private List<LineItem> lineItems;
+    private Set<LineItem> lineItems;
+
+    private Timestamp shippedDate;
+
+    private Timestamp deliveryDate;
 
     public Shipment() {
+        this.shippedDate = new Timestamp(System.currentTimeMillis());
+    }
+
+    public long getShipmentId() {
+        return shipmentId;
     }
 
     public Account getAccount() {
@@ -40,21 +53,33 @@ public class Shipment {
 
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
-        this.account = shippingAddress.getAccount();
+        setAccount(shippingAddress.getAccount());
     }
 
-    public List<LineItem> getLineItems() {
+    public Set<LineItem> getLineItems() {
         return lineItems;
     }
 
-    public void setLineItems(List<LineItem> lineItems) {
+    public void setLineItems(Set<LineItem> lineItems) {
         this.lineItems = lineItems;
-        this.shippingAddress = lineItems.get(0).getOrderDetail().getShippingAddress();
+        List<LineItem> list = new ArrayList<>(lineItems);
+        setShippingAddress(list.get(0).getOrderDetail().getShippingAddress());
+        lineItems.forEach(lineItem -> lineItem.setShipment(this));
     }
 
-//
-//    private Timestamp shippedDate;
-//
-//    private Timestamp deliveryDate;
+    public Timestamp getShippedDate() {
+        return shippedDate;
+    }
 
+    public void setShippedDate(Timestamp shippedDate) {
+        this.shippedDate = shippedDate;
+    }
+
+    public Timestamp getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Timestamp deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
 }

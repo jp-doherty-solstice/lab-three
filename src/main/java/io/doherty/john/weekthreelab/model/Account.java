@@ -1,7 +1,8 @@
 package io.doherty.john.weekthreelab.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,15 +14,19 @@ public class Account {
     private long accountId;
 
     private String firstName;
+
     private String lastName;
+
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Address> addresses;
 
-//    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
-//    @JoinColumn(name = "accountId")
-//    private Set<OrderDetail> orders = new HashSet<>();
+    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @JoinColumn(name = "accountId")
+    @JsonIgnore
+    private List<OrderDetail> orders;
 
     public Account() {}
 
@@ -52,21 +57,17 @@ public class Account {
     public void setEmail(String email) {
         this.email = email;
     }
-
     public Set<Address> getAddresses() {
         return addresses;
     }
-
     public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
+    public List<OrderDetail> getOrders() {
+        return orders;
+    }
+    public void setOrders(List<OrderDetail> orders) {
+        this.orders = orders;
+    }
 
-
-    //    public Set<OrderDetail> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(Set<OrderDetail> orders) {
-//        this.orders = orders;
-//    }
 }

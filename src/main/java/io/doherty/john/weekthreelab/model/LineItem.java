@@ -1,5 +1,7 @@
 package io.doherty.john.weekthreelab.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,15 +18,17 @@ public class LineItem {
 
     @ManyToOne
     @JoinColumn(name = "orderNumber")
+    @JsonIgnore
     private OrderDetail orderDetail;
-
 
     private int quantity;
 
     private double totalPrice;
 
-//    private Shipment shipment;
-
+    @ManyToOne
+    @JoinColumn(name = "shipmentId")
+    @JsonIgnore
+    private Shipment shipment;
 
     public LineItem() {
     }
@@ -35,7 +39,7 @@ public class LineItem {
 
     public void setProduct(Product product) {
         this.product = product;
-        this.totalPrice = this.product.getPrice() * this.quantity;
+        setTotalPrice(this.product.getPrice() * this.quantity);
     }
 
     public OrderDetail getOrderDetail() {
@@ -52,7 +56,7 @@ public class LineItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-        this.totalPrice = this.product.getPrice() * this.quantity;
+        setTotalPrice(this.product.getPrice() * this.quantity);
     }
 
     public double getTotalPrice() {
@@ -63,6 +67,11 @@ public class LineItem {
         this.totalPrice = totalPrice;
     }
 
+    public Shipment getShipment() {
+        return shipment;
+    }
 
-
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
+    }
 }

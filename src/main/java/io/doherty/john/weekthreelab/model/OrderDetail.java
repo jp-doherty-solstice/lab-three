@@ -1,5 +1,7 @@
 package io.doherty.john.weekthreelab.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -30,9 +32,14 @@ public class OrderDetail {
         this.orderDate = new Timestamp(System.currentTimeMillis());
     }
 
+    public long getOrderNumber() {
+        return orderNumber;
+    }
+
     public Account getAccount() {
         return account;
     }
+
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -59,6 +66,7 @@ public class OrderDetail {
 
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
+        this.account = shippingAddress.getAccount();
     }
 
     public Set<LineItem> getLineItems() {
